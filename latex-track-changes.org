@@ -1,0 +1,47 @@
+-*-  mode: org; mode: visual-line -*-
+* LaTeX
+** feature
+*** track change
+
+I have used the *changes* package in the past and I find it very useful. It has a key=value system so most of the things are customizable. You can define different authors and the changes are tracked depending on the id; here is a simple example (mostly from the manual).
+
+#+STARTUP: latexpreview
+#+begin_src latex
+
+\[
+a^2 = 1
+\]
+
+#+end_src
+
+#+begin_src latex
+  \documentclass{article}
+
+  \usepackage{changes}
+  \usepackage{lipsum}% <- For dummy text
+  \definechangesauthor[name={Per cusse}, color=orange]{per}
+  \setremarkmarkup{(#2)}
+ 
+ 
+  \begin{document}
+  \lipsum[1-7]
+ 
+  This is \added[id=per,remark={we need this}]{new} text.
+  This is \added[id=per,remark={has to be in it}]{new} text.
+  This is \deleted[id=per,remark=obsolete]{unnecessary}text.
+  This is \replaced[id=per]{nice}{bad} text.
+ 
+  This is \added[remark={we need this}]{new} text.
+  This is \added[remark={has to be in it}]{new} text.
+  This is \deleted[remark=obsolete]{unnecessary}text.
+  This is \replaced{nice}{bad} text.
+ 
+ 
+  \listofchanges
+  \end{document}
+#+end_src
+
+then, the results can be shown  as:
+[[~/Desktop/20160405103920455.png]]
+
+And the nice thing is that if you supply the final option to the package declaration that is \usepackage[final]{changes} it clears the traces of changes made by the authors and respecting the last changes.

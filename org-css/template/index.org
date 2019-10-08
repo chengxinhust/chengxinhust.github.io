@@ -21,8 +21,8 @@ function swapStyle(css){
 }
 </script>
 <div style="margin: 1em auto;">
-  <button onclick="swapStyle('org.css')">Customized</button>
-  <button onclick="swapStyle('org-default.css')">Default</button>
+  <button onclick="swapStyle('css/org.css')">Customized</button>
+  <button onclick="swapStyle('css/org-default.css')">Default</button>
 </div>
 #+END_EXPORT
 

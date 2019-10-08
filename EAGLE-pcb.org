@@ -1,0 +1,71 @@
+* EAGLE pcb: Designing Circuit Boards with EAGLE Making High-Quality PCBs at Low Cost
+** term
+   
+   - SPST: single pole single throw (switch)
+     . SPDT, SP3T ...
+   - MIC5205: voltage regulator
+     
+** command
+
+   - <cmd_name> <cmd_property> <cmd_property> ...: a command can have more than one actions once.
+     Note: the order of <cmd_property> is critical
+   - script ***.scr: execute a list of commands which are stored in a .scr file. 
+     Note: each command end with ';'
+
+   - wild card: ? * []
+
+*** editor command
+
+    - use <library_name>, use -* <library_name> activate and deactivate the library
+    - add <part_name>@<library_name> <set_part_name> SMR<rotate_angle> (2.5 -1.5): [S] does not align text, [M] mirror according to y-axis
+    - move U3>NAME (-0.2mm 3.1in): default scale is the scale of grid
+    - rotate R90 U1 =R270 U2 =MR30 U3>NAME: [R] angle [M] mirror
+    - example.lbr: activate library;  use -* example: deactivate library
+    - name [<old_name>] <new_name>
+    - value <part_name> 10k <part_name> 10uF
+    - attribute <part_name> <attribute_name> 'attribute_value' [DELETE]
+    - smash <part_name>
+      Note: if want unsmash, keep the smash command active and shift click the part
+    - !net net_wire_width 10 auto_end_off 0 auto_junction_off 1 <net_name> (0 0) (1 1)
+    - bus <bus_name>:ACLK,RST,D[0..15] bus_wire_width 30 (0.5 1.5) (2.5 1.5)
+    - label: cannot set label content when label command is active. it display the label content automatically with NAME and VALUE
+    - frame 8 4 top left right (-3.0 -1.5) 3.0 1.5)
+
+*** board command
+
+    - grid on mil dots 0.5 5 alt mm 0.05
+      Note: set name for current grid: grid = name @. delete a name: grid = name
+    - layer 100 <new_layer_name> -101
+    - display NONE ALL TOP BOTTOM 1 2 3
+    - mirror U2: move element from top layer to bottom layer
+    - signal GND U1 PAD_A U2 PAD_A: create airwire
+    - ratsnest sig0 ! sig1 sig2
+      Note: if polygon is on, suggest "set polygon_ratsnest off" before ratsnest
+    - route <wire_width>
+    - ripup sig1 ! sig2 @ poly1 ! poly2
+    - via 'VCC' 16mil 1-16 (150mil 200mil)
+    - auto route_all ! route1 followme save <filename.ctl>
+
+*** library command
+
+    - open <library_name>
+    - edit circuit.sch circuit.brd name.sym name.pac name.dev
+    - write @new_circuit_name
+    - arc ccw <start_position> <arc_border_position> <end_position>
+    - rect R30 <first_position> <end_position>: create solid rectangle
+    - circle <center_position> <circle_border_position> <width>
+    - pin, pad, smd
+
+*** special commands
+
+    - change NAME VALUE: change all the components with NAME
+    - set ATTR VALUE
+
+*** EAGLE configuration script filename
+    eagle.scr in the root scr folder
+
+
+** user language: UL
+*** file operation:
+    
+    - 
